@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ToDo List</title>
+    <link rel="stylesheet" href="todo.css" />
+    <link
+      href="https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="main_container">
+      <div class="container main_details">
+        <div class="todo_nav">
+          <div class="logo">
+            <h2>TODO<i class="bx bx-book-reader bx-tada"></i></h2>
+          </div>
+
+          <div class="todo_nav2">
+            <a href="#" class="completed">Completed</a>
+            <a href="#" class="pending">Pending</a>
+            <a href="#" class="totalTodo">Total_ToDos</a>
+          </div>
+        </div>
+
+        <div class="todo_list">
+          <h1>TODO</h1>
+          <input
+            placeholder="Enter Your ToDo"
+            type="text"
+            id="todo_list_input"
+            maxlength="50"
+          />
+          <button class="todo_btn">ADD</button>
+        </div>
+
+        <div class="todo_add">
+          <ul class="maincontainer"></ul>
+        </div>
+      </div>
+
+      <div class="update_form">
+        <h2 class="up_h2">Wanna UPDATE YOUR TODO...!!</h2>
+        <hr class="line" />
+        <input class="update_input" placeholder="Update here" />
+        <button class="update_btn">Enter</button>
+      </div>
+    </div>
+    <div class="loading hidden">
+      <div class="lds-dual-ring"></div>
+    </div>
+    <script src="todo.js"></script>
+  </body>
+</html>
