@@ -7,16 +7,14 @@ const update_todo = document.querySelector(".update_form");
 const pending = document.querySelector(".pending");
 const completed = document.querySelector(".completed");
 const totalTodos = document.querySelector(".totalTodo");
-
+const url_main = "https://todobyram.herokuapp.com/Data";
 let sortingCompleted = false;
 let editTodoId;
 
 //completed todo_list
 let pedndingTask = false;
 async function sortTodo() {
-  const completeData = await fetch(
-    `http://localhost:3000/Data?completed=${sortingCompleted}`
-  );
+  const completeData = await fetch(`${url_main}?completed=${sortingCompleted}`);
   const filteredData = await completeData.json();
   list.innerHTML = "";
   filteredData.forEach((element) => addingList(element));
@@ -85,7 +83,7 @@ function addingList(i) {
 
 btn.addEventListener("click", async function () {
   if (input.value !== "") {
-    const todo_Data = await fetch("http://localhost:3000/Data");
+    const todo_Data = await fetch(`${url_main}`);
     const json_todo = await todo_Data.json();
     const duplicate_todo = json_todo.find((each) => each.name === input.value);
     if (duplicate_todo === undefined) {
@@ -99,7 +97,7 @@ btn.addEventListener("click", async function () {
 
 //filtering todo_data
 async function complete_display(todoId) {
-  const url = "http://localhost:3000/Data/" + todoId;
+  const url = `${url_main}/` + todoId;
   const backendElement = await fetch(url);
   const backendLi = await backendElement.json();
   const updatedTodo = {
@@ -134,7 +132,7 @@ async function displaying_data() {
   document.querySelector(`.loading`).classList.remove(`hidden`);
   setTimeout(async function () {
     document.querySelector("ul").innerHTML = "";
-    const forData = await fetch(`http://localhost:3000/Data`);
+    const forData = await fetch(`${url_main}`);
     const for_Json_Data = await forData.json();
     for_Json_Data.forEach((element) => addingList(element));
     document.querySelector(`.loading`).classList.add(`hidden`);
@@ -144,7 +142,7 @@ displaying_data();
 
 //adding data to backend
 async function sendData() {
-  link = "http://localhost:3000/Data";
+  link = `${url_main}`;
   console.log(input.value);
   details = { name: input.value, completed: false };
   const resp = await fetch(link, {
@@ -154,11 +152,12 @@ async function sendData() {
     },
     body: JSON.stringify(details),
   });
+  displaying_data();
 }
 
 //delete backend data..
 async function dele_data(dta) {
-  link = "http://localhost:3000/Data/" + dta;
+  link = `${url_main}/` + dta;
   const deleting = await fetch(link, {
     method: "DELETE",
     headers: {
@@ -171,7 +170,7 @@ async function dele_data(dta) {
 //edit-btn functionality for todo
 const editInput = document.querySelector(".update_input");
 async function editTodo() {
-  const url = "http://localhost:3000/Data/" + editTodoId;
+  const url = `${url_main}/` + editTodoId;
   const backendElement = await fetch(url);
   const backendLi = await backendElement.json();
   const updatedTodo = {
@@ -186,6 +185,8 @@ async function editTodo() {
     },
     body: JSON.stringify(updatedTodo),
   });
+  main_container.style.opacity = "1";
+  update_todo.style.opacity = "0";
   displaying_data();
 }
 const editTodoBtn = document.querySelector(".update_btn");
